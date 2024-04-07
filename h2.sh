@@ -44,4 +44,4 @@ FOO
 #kubectl apply -f sec.yaml
 #kubectl apply -f c.yaml
 #kubectl apply -f hpa.yaml
-#minikube ip >ip-kube &
+minikube ip >ip-kube &
