@@ -154,10 +154,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
 clear
 echo "
-Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma).
+- Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma).
 kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
 SHOW DATABASES;
 QUIT;
+- pārliecināties par HPA darbību (3 termināli atsevišķi):
+  kubectl get hpa laravel-deployment --watch
+  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://$(cat ~/ltv/ip-kube):32223/index.php; done"
+  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://$(cat ~/ltv/ip-kube):32223/; done"
 "
 fi
 fi
