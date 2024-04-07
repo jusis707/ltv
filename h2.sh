@@ -88,6 +88,13 @@ clear
 minikube ip >ip-kube &
 kubectl  get services
 sleep 1
+pods_count=$(kubectl get pods -n $namespace | grep -c "Running")
+while [ $pods_count -ne $(kubectl get pods -n $namespace | grep -c "")]
+do
+ echo "waiting for all pods to be ready"
+ sleep 10
+done
+echo "All pods are ready"
 kubectl wait pod \
 --all \
 --for=condition=Ready \
