@@ -89,15 +89,15 @@ minikube ip >ip-kube &
 kubectl  get services
 sleep 1
 pods_count=$(kubectl get pods | grep -c "Running")
-while [ $pods_count -ne $(kubectl get pods | grep -c "")]
+while [[ $pods_count -ne $(kubectl get pods | grep -c "") ]]
 do
- echo "waiting for all pods to be ready"
- sleep 10
+  echo "waiting for all pods to be ready"
+  sleep 10
 done
 echo "All pods are ready"
 kubectl wait pod \
 --all \
---for=condition=Ready
+--for=condition=Ready --timeout=5m
 sleep 1
 minikube service laravel
 echo "gaidiit.."
