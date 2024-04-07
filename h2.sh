@@ -150,6 +150,7 @@ echo ""
 read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
 ----------------------------------------
 piefiksēt norādīto zemāk, veicot manuāli:
+nospiest y un ENTER
 ----------------------------------------"
 echo ""
  -n 1 -r
