@@ -88,7 +88,10 @@ clear
 minikube ip >ip-kube &
 kubectl  get services
 sleep 1
-minikube service laravel >/dev/null
+kubectl wait pod \
+--all \
+--for=condition=Ready \
+--namespace=${ns}
 sleep 1
 minikube service laravel
 echo "gaidiit.."
