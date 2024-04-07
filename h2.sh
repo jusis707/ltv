@@ -125,7 +125,7 @@ echo ""
 read -p "
 ----------------------------------------
       lai turpinātu, nospiest y
-    tiks sagatavots webhook query"
+    tiks sagatavots webhook query
 docker versija uz host servera un minikube vidē ir = un atjaunināta
 ----------------------------------------" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -144,11 +144,12 @@ echo ""
 echo "augstāk redzamo piefiksēt, un pārliecināties par query datu pareizību atverot saiti"
 echo ""
 echo ""
-read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y" -n 1 -r
+read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
+----------------------------------------
+piefiksēt norādīto zemāk, veicot manuāli:
+----------------------------------------"
+ -n 1 -r
 echo ""
-echo "----------------------------------------"
-echo  "piefiksēt norādīto zemāk, veicot manuāli:"  # (optional) move to a new line
-echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 clear
@@ -156,7 +157,6 @@ wget https://github.com/jusis707/ltv/raw/main/inst.txt -q
 clear
 cat ~/ltv/inst.txt | sed "s/ipk/`cat ip-kube`/" > ~/ltv/instrukcija.txt
 echo -e $(cat ~/ltv/instrukcija.txt)
-echo ""
 fi
 fi
 fi
