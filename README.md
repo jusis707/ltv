@@ -1,0 +1,2 @@
+# ltv
+Sistēmu Administrators
