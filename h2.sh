@@ -27,7 +27,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #sudo echo "{ "insecure-registries" : [ "10.0.0.0/16" ] }" > /etc/docker/daemon.json
 #sed 's/\[Service\]/\[Service\] \nEnvironment=DOCKER_OPTS=--insecure-registry=10.0.0.0/16/' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
-docker login -u 'jurismuris' -p 'horizonts' quay.io
+echo "horizonts" > ~/p.txt
+cat ~/p.txt | docker login --username jurismuris --password-stdin quay.io
 minikube config set cpus 4
 minikube config set memory 4084
 sudo usermod -aG docker $USER
