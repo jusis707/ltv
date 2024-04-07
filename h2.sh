@@ -77,4 +77,8 @@ kubectl apply -f sec.yaml
 kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
 minikube ip >ip-kube &
+#lsb_release -a | grep Desc | awk '{print $2,$3}'>o1
+#docker --version | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
+#cat o1 | awk '{print}' ORS='/' >o2
+#cat o2 | sed 's/ /_/g'>o3
 fi
