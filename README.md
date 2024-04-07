@@ -8,4 +8,6 @@ Manuāli veicamās darbības, opcionāli, komandas:
   minikube ip
   minikube ssh
   minikube service laravel
+Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
+  
   
