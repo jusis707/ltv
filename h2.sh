@@ -141,6 +141,7 @@ https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/a130bafd-3540-
 "
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
 echo ""
+echo "augstāk redzamo piefiksēt, un pārliecināties par query datu pareizību atverot saiti"
 echo ""
 echo ""
 read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y" -n 1 -r
@@ -150,6 +151,7 @@ echo  "piefiksēt norādīto zemāk, veicot manuāli:"  # (optional) move to a n
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+clear
 echo "
 Pārbaudīt mysql datubāzes pieejamību.
 kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
