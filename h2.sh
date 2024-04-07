@@ -47,7 +47,18 @@ FOO
 #sudo newgrp docker
 #sudo usermod -aG docker $USER && newgrp docker
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
-minikube addons enable metrics-server
+#minikube addons enable metrics-server
+minikube addons enable metrics-server 2>/dev/null &
+pid=$!  # Capture the process ID of the previous command
+spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
+echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
+while kill -0 $pid 2>/dev/null; do  # Check if the process is running
+    for i in "${spin[@]}"; do  # Iterate through spinner characters
+        echo -ne "\b$i"  # Overwrite previous character with a new one
+        sleep 0.2        # Delay for animation effect
+    done
+done
+echo
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
@@ -59,7 +70,18 @@ echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
-minikube addons enable ingress
+#minikube addons enable ingress
+minikube addons enable ingress 2>/dev/null &
+pid=$!  # Capture the process ID of the previous command
+spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
+echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
+while kill -0 $pid 2>/dev/null; do  # Check if the process is running
+    for i in "${spin[@]}"; do  # Iterate through spinner characters
+        echo -ne "\b$i"  # Overwrite previous character with a new one
+        sleep 0.2        # Delay for animation effect
+    done
+done
+echo
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
@@ -72,12 +94,12 @@ echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
 minikube addons enable registry
-wget https://github.com/jusis707/ltv/raw/main/s.yaml
-wget https://github.com/jusis707/ltv/raw/main/p.yaml
-wget https://github.com/jusis707/ltv/raw/main/hpa.yaml
-wget https://github.com/jusis707/ltv/raw/main/cm.yaml
-wget https://github.com/jusis707/ltv/raw/main/c.yaml
-wget https://github.com/jusis707/ltv/raw/main/sec.yaml
+wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/cm.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/c.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/sec.yaml -q
 kubectl apply -f p.yaml
 kubectl apply -f cm.yaml
 kubectl apply -f s.yaml
@@ -86,13 +108,6 @@ kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
 clear
 minikube ip >ip-kube &
-#pods_count=$(kubectl get pods | grep -c "Running")
-#while [[ $pods_count -ne $(kubectl get pods | grep -c "") ]]
-#do
-#  echo "waiting for all pods to be ready"
-#  sleep 10
-#done
-#echo "All pods are ready"
 sleep 2
 kubectl  get services
 echo "----------------------------------------"
@@ -101,18 +116,14 @@ echo "----------------------------------------"
 echo ""
 kubectl wait pod --all --for=condition=Ready --timeout=5m 2>/dev/null &
 pid=$!  # Capture the process ID of the previous command
-
 spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
-
 echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
-
 while kill -0 $pid 2>/dev/null; do  # Check if the process is running
     for i in "${spin[@]}"; do  # Iterate through spinner characters
         echo -ne "\b$i"  # Overwrite previous character with a new one
         sleep 0.2        # Delay for animation effect
     done
 done
-
 echo
 ##kubectl wait pod --all --for=condition=Ready --timeout=5m
 ##sleep 1
@@ -148,10 +159,15 @@ echo  "UZMANIBU"  # (optional) move to a new line
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+RED="\033[0;31m"  # Red
+GREEN="\033[0;32m"  # Green
+RESET="\033[0m"    # Reset color
 echo "
-kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
+Pārbaudīt mysql datubāzes pieejamību.
+Lūdzu veikt sekojošo:
+${RED}kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
 SHOW DATABASES;
-QUIT;
+QUIT;${RESET}
 "
 fi
 fi
