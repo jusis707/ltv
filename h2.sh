@@ -63,11 +63,17 @@ echo "pacietiba..."
 echo "pacietiba..."
 minikube addons enable registry
 FOO
-#kubectl apply -f p.yaml
-#kubectl apply -f cm.yaml
-#kubectl apply -f s.yaml
-#kubectl apply -f sec.yaml
-#kubectl apply -f c.yaml
-#kubectl apply -f hpa.yaml
+wget https://github.com/jusis707/ltv/raw/main/s.yaml
+wget https://github.com/jusis707/ltv/raw/main/p.yaml
+wget https://github.com/jusis707/ltv/raw/main/hpa.yaml
+wget https://github.com/jusis707/ltv/raw/main/cm.yaml
+wget https://github.com/jusis707/ltv/raw/main/c.yaml
+wget https://github.com/jusis707/ltv/raw/main/sec.yaml
+kubectl apply -f p.yaml
+kubectl apply -f cm.yaml
+kubectl apply -f s.yaml
+kubectl apply -f sec.yaml
+kubectl apply -f c.yaml
+kubectl apply -f hpa.yaml
 minikube ip >ip-kube &
 fi
