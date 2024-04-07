@@ -86,7 +86,9 @@ kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
 clear
 minikube ip >ip-kube &
+sleep 5
 minikube service laravel
+sleep 5
 echo "turpinaat nospiest y"
 read -p "Are you sure? type y or no." -n 1 -r
 echo ""
