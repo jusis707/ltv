@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   creationTimestamp: "2024-04-07T05:17:06Z"
-  name: laravel-deployment
+  name: laravel
   namespace: default
   resourceVersion: "4349"
   uid: 695f0a2d-6491-42d5-bd60-11a71bee4fd1
@@ -19,7 +19,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: laravel-deployment
+    name: laravel
 status:
   conditions:
   - lastTransitionTime: "2024-04-07T05:17:21Z"
