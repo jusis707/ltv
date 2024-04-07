@@ -123,6 +123,35 @@ cat o2 | sed 's/ /_/g'>o3
 echo ""
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
 echo ""
+# Explain what information will be sent
+echo "This script will send your Ubuntu version and (optionally sanitized) Docker version to a webhook."
+
+# Get user confirmation
+if ! confirm_action; then
+  exit 0
+fi
+
+# Capture system information
+ubuntu_version=$(lsb_release -a | grep Desc | awk '{print $2}')
+docker_version=$(docker --version | awk '{print $1, $2}')
+
+# Optional: Sanitize Docker version (remove patch version)
+# docker_version=${docker_version%%.*}  # Example - removes patch version
+
+# Secure webhook URL (replace with interviewer's instructions)
+webhook_url="https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f"
+
+# Prepare data payload (consider JSON format for flexibility)
+payload="{\"ubuntu_version\": \"$ubuntu_version\", \"docker_version\": \"$docker_version\"}"
+
+# Send data using curl (replace with interviewer's preferred method)
+if [[ $webhook_url ]]; then
+  echo "Sending data to webhook..."
+  curl -sS -X POST "$webhook_url" -H 'Content-Type: application/json' -d "$payload" > /dev/null
+fi
+
+echo "Done."
+echo ""
 echo "MYSQL turpinaat nospiest y"
 read -p "Are you sure? type y or no." -n 1 -r
 echo ""
