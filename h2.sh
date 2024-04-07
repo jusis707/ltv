@@ -75,6 +75,8 @@ echo "pacietiba..."
 echo "pacietiba..."
 minikube addons enable registry
 minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
+clear
+sleep 1
 echo "========================================"
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
