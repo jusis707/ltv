@@ -33,6 +33,7 @@ minikube config set memory 4084
 sudo usermod -aG docker $USER
 #&& newgrp docker
 newgrp docker << FOO
+FOO
 #sudo usermod -aG docker $USER
 #sudo newgrp docker
 #sudo usermod -aG docker $USER && newgrp docker
@@ -62,7 +63,6 @@ echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
 minikube addons enable registry
-FOO
 wget https://github.com/jusis707/ltv/raw/main/s.yaml
 wget https://github.com/jusis707/ltv/raw/main/p.yaml
 wget https://github.com/jusis707/ltv/raw/main/hpa.yaml
