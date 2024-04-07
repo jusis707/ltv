@@ -152,9 +152,10 @@ echo  "piefiksēt norādīto zemāk, veicot manuāli:"  # (optional) move to a n
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-wget 
+wget https://github.com/jusis707/ltv/raw/main/inst.txt -q
 clear
-echo '$(cat ~/ltv/inst.txt)'
+echo $(cat ~/ltv/inst.txt)
+echo ""
 fi
 fi
 fi
