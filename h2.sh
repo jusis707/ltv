@@ -25,7 +25,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
 docker login -u 'jurismuris' -p 'horizonts' quay.io
 minikube config set cpus 4
-minikube config set memory 4384
+minikube config set memory 4084
 sudo usermod -aG docker $USER
 #&& newgrp docker
 newgrp docker << FOO
