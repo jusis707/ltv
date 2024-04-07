@@ -99,36 +99,21 @@ echo "----------------------------------------"
 echo  "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
 echo "----------------------------------------"
 echo ""
-# Improved script with animation
+kubectl wait pod --all --for=condition=Ready --timeout=5m 2>/dev/null &
+pid=$!  # Capture the process ID of the previous command
 
-echo "----------------------------------------"
-echo "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
-echo "----------------------------------------"
+spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
 
-# Initialize a variable for the animation state
-animation_state="-"
+echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
 
-# Loop until all pods are ready (using kubectl wait)
-while ! kubectl wait pod --all --for=condition=Ready --timeout=5m &> /dev/null; do
-  # Print the current animation state
-  echo -n "$animation_state"
-
-  # Update the animation state (cycle through characters)
-  case $animation_state in
-      "-" ) animation_state="."; break;;
-      "." ) animation_state="..."; break;;
-      "..." ) animation_state="-"; break;;
-  esac
-
-  # Move the cursor back one position (avoid line breaks)
-  echo -ne "\b"
-
-  # Introduce a slight delay for animation effect
-  sleep 0.2
+while kill -0 $pid 2>/dev/null; do  # Check if the process is running
+    for i in "${spin[@]}"; do  # Iterate through spinner characters
+        echo -ne "\b$i"  # Overwrite previous character with a new one
+        sleep 0.2        # Delay for animation effect
+    done
 done
 
-# Indicate pods are ready
-echo " Pods are ready!"
+echo
 ##kubectl wait pod --all --for=condition=Ready --timeout=5m
 ##sleep 1
 echo "----------------------------------------"
