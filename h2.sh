@@ -5,9 +5,7 @@ sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates curl mc rsync -y
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
-sudo newgrp docker
-exit
-sudo usermod -aG docker $USER
+sudo groupadd docker
 minikube version
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -25,20 +23,25 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #sudo echo "{ "insecure-registries" : [ "10.0.0.0/16" ] }" > /etc/docker/daemon.json
 #sed 's/\[Service\]/\[Service\] \nEnvironment=DOCKER_OPTS=--insecure-registry=10.0.0.0/16/' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
-docker login -u 'jurismuris' -p 'horizonts' -e 'embergs.usa@gmail.com' quay.io
+docker login -u 'jurismuris' -p 'horizonts' quay.io
 minikube config set cpus 4
 minikube config set memory 4384
+sudo usermod -aG docker $USER
+#&& newgrp docker
+newgrp docker << FOO
 #sudo usermod -aG docker $USER
 #sudo newgrp docker
 #sudo usermod -aG docker $USER && newgrp docker
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 minikube addons enable metrics-server
+echo "pacietiba..."
 minikube addons enable ingress
 minikube addons enable registry
-kubectl apply -f p.yaml
-kubectl apply -f cm.yaml
-kubectl apply -f s.yaml
-kubectl apply -f sec.yaml
-kubectl apply -f c.yaml
-kubectl apply -f hpa.yaml
-minikube ip >ip-kube &
+FOO
+#kubectl apply -f p.yaml
+#kubectl apply -f cm.yaml
+#kubectl apply -f s.yaml
+#kubectl apply -f sec.yaml
+#kubectl apply -f c.yaml
+#kubectl apply -f hpa.yaml
+#minikube ip >ip-kube &
