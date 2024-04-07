@@ -46,6 +46,7 @@ FOO
 #sudo usermod -aG docker $USER
 #sudo newgrp docker
 #sudo usermod -aG docker $USER && newgrp docker
+# nedroši, lai nestartētu minikube ar --force
 sudo chmod 666 /var/run/docker.sock
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 minikube addons enable metrics-server
