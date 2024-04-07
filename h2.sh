@@ -122,13 +122,12 @@ minikube service laravel
 echo "augstāk redzamo piefiksēt"
 sleep 5
 echo ""
-read -p "lai turpinātu, nospiest y" -n 1 -r
-echo ""
-echo "----------------------------------------"
-echo  "tiek sagatavots webhook query"  # (optional) move to a new line
-echo  "docker versija uz host servera un minikube vidē ir = un atjaunināta" 
-echo "----------------------------------------"
-sleep 3
+read -p "
+----------------------------------------
+      lai turpinātu, nospiest y
+    tiks sagatavots webhook query"
+docker versija uz host servera un minikube vidē ir = un atjaunināta
+----------------------------------------" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 clear
@@ -152,6 +151,7 @@ echo  "piefiksēt norādīto zemāk, veicot manuāli:"  # (optional) move to a n
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+clear
 wget https://github.com/jusis707/ltv/raw/main/inst.txt -q
 clear
 echo $(cat ~/ltv/inst.txt)
