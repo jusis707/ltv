@@ -154,7 +154,8 @@ then
 clear
 wget https://github.com/jusis707/ltv/raw/main/inst.txt -q
 clear
-echo $(cat ~/ltv/inst.txt)
+cat ~/ltv/inst.txt | sed "s/ipk/`cat ip-kube`/" > ~/ltv/instrukcija.txt
+echo $(cat ~/ltv/instrukcija.txt)
 echo ""
 fi
 fi
