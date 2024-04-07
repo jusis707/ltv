@@ -1,4 +1,8 @@
 #/bin/bash
+read -p "Are you sure? type y or no." -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
 mkdir ~/ltv
 cd ~/ltv
 sudo apt-get update
@@ -45,3 +49,4 @@ FOO
 #kubectl apply -f c.yaml
 #kubectl apply -f hpa.yaml
 minikube ip >ip-kube &
+fi
