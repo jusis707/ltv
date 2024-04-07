@@ -88,6 +88,7 @@ clear
 minikube ip >ip-kube &
 sleep 5
 minikube service laravel
+echo "gaidiit.."
 sleep 5
 echo "turpinaat nospiest y"
 read -p "Are you sure? type y or no." -n 1 -r
