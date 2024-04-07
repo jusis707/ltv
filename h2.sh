@@ -102,7 +102,7 @@ cat o2 | sed 's/ /_/g'>o3
 echo ""
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
 echo ""
-echo "turpinaat nospiest y"
+echo "MYSQL turpinaat nospiest y"
 read -p "Are you sure? type y or no." -n 1 -r
 echo ""
 echo "----------------------------------------"
@@ -110,10 +110,11 @@ echo  "UZMANIBU"  # (optional) move to a new line
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+echo "
 kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
 SHOW DATABASES;
 QUIT;
-sleep 2
+"
 fi
 fi
 fi
