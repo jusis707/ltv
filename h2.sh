@@ -10,6 +10,7 @@ read -p "
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+clear
 mkdir ~/ltv
 cd ~/ltv
 sudo apt-get update
@@ -129,6 +130,7 @@ echo  "tiek sagatavots webhook query"  # (optional) move to a new line
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+clear
 echo "Ubuntu" >o1
 cat /etc/lsb-release | sed -n 4p | awk '{print $2}' >>o1
 minikube ssh 'docker --version' | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
