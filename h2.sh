@@ -152,17 +152,9 @@ echo  "piefiksēt norādīto zemāk, veicot manuāli:"  # (optional) move to a n
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+wget 
 clear
-echo "
-- Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma).
-kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
-SHOW DATABASES;
-QUIT;
-- pārliecināties par HPA darbību (3 termināli atsevišķi):
-  kubectl get hpa laravel-deployment --watch
-  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://$(cat ~/ltv/ip-kube):32223/index.php; done"
-  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://$(cat ~/ltv/ip-kube):32223/; done"
-"
+echo '$(cat ~/ltv/inst.txt)'
 fi
 fi
 fi
