@@ -154,7 +154,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
 clear
 echo "
-Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi.
+Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma).
 kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
 SHOW DATABASES;
 QUIT;
