@@ -7,7 +7,9 @@ read -p "Are you sure? type y or no.
 " -n 1 -r
 echo ""
 echo "========================================"
-echo  "UZMANIBU"  # (optional) move to a new line
+echo  "UZMANĪBU"  # (optional) move to a new line
+echo "y lai turpinātu"
+echo "CTRL + C lai izietu"
 echo "========================================"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -47,18 +49,7 @@ FOO
 #sudo newgrp docker
 #sudo usermod -aG docker $USER && newgrp docker
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
-#minikube addons enable metrics-server
-minikube addons enable metrics-server 2>/dev/null &
-pid=$!  # Capture the process ID of the previous command
-spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
-echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
-while kill -0 $pid 2>/dev/null; do  # Check if the process is running
-    for i in "${spin[@]}"; do  # Iterate through spinner characters
-        echo -ne "\b$i"  # Overwrite previous character with a new one
-        sleep 0.2        # Delay for animation effect
-    done
-done
-echo
+minikube addons enable metrics-server
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
@@ -70,18 +61,7 @@ echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
-#minikube addons enable ingress
-minikube addons enable ingress 2>/dev/null &
-pid=$!  # Capture the process ID of the previous command
-spin=( "-" "\\" "|" "/" )  # Create an array for spinner characters
-echo -n "[copying] ${spin[0]}"  # Print the initial spinner character
-while kill -0 $pid 2>/dev/null; do  # Check if the process is running
-    for i in "${spin[@]}"; do  # Iterate through spinner characters
-        echo -ne "\b$i"  # Overwrite previous character with a new one
-        sleep 0.2        # Delay for animation effect
-    done
-done
-echo
+minikube addons enable ingress
 echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
@@ -111,7 +91,7 @@ minikube ip >ip-kube &
 sleep 2
 kubectl  get services
 echo "----------------------------------------"
-echo  "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
+echo  "Gaidam uz konteineru gatavību"  # (optional) move to a new line
 echo "----------------------------------------"
 echo ""
 kubectl wait pod --all --for=condition=Ready --timeout=5m 2>/dev/null &
@@ -147,11 +127,8 @@ lsb_release -a | grep Desc | awk '{print $2,$3}'>o1
 docker --version | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
 cat o1 | awk '{print}' ORS='/' >o2
 cat o2 | sed 's/ /_/g'>o3
-RED="\033[0;31m"  # Red
-GREEN="\033[0;32m"  # Green
-RESET="\033[0m"    # Reset color
 echo "Pārlūkprogramā atvērt:
-${RED}https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/a130bafd-3540-4fe2-a973-b1d106efae33/1${RESET}
+https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/a130bafd-3540-4fe2-a973-b1d106efae33/1
 "
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
 echo ""
@@ -164,15 +141,12 @@ echo  "UZMANIBU"  # (optional) move to a new line
 echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-RED="\033[0;31m"  # Red
-GREEN="\033[0;32m"  # Green
-RESET="\033[0m"    # Reset color
 echo "
 Pārbaudīt mysql datubāzes pieejamību.
 Lūdzu veikt sekojošo:
-${RED}kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
+kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h laravel -pASdf456+
 SHOW DATABASES;
-QUIT;${RESET}
+QUIT;
 "
 fi
 fi
