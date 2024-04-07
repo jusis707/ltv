@@ -39,7 +39,28 @@ newgrp docker << FOO
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 minikube addons enable metrics-server
 echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
 minikube addons enable ingress
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
+echo "pacietiba..."
 minikube addons enable registry
 FOO
 #kubectl apply -f p.yaml
