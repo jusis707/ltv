@@ -74,6 +74,13 @@ echo "pacietiba..."
 echo "pacietiba..."
 echo "pacietiba..."
 minikube addons enable registry
+minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
+echo "========================================"
+echo  "UZMANĪBU"  # (optional) move to a new line
+echo "Docker versija minikube vidē:"
+minikube ssh 'docker --version'
+echo "========================================"
+sleep 2
 wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
@@ -124,7 +131,7 @@ echo "----------------------------------------"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 lsb_release -a | grep Desc | awk '{print $2,$3}'>o1
-docker --version | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
+minikube ssh 'docker --version' | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
 cat o1 | awk '{print}' ORS='/' >o2
 cat o2 | sed 's/ /_/g'>o3
 echo "Pārlūkprogramā atvērt:
