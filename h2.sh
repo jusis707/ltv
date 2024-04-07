@@ -87,6 +87,8 @@ kubectl apply -f hpa.yaml
 clear
 minikube ip >ip-kube &
 sleep 5
+kubectl  get services
+sleep 1
 minikube service laravel
 echo "gaidiit.."
 sleep 5
