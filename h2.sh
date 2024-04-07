@@ -98,8 +98,39 @@ kubectl  get services
 echo "----------------------------------------"
 echo  "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
 echo "----------------------------------------"
-kubectl wait pod --all --for=condition=Ready --timeout=5m
-sleep 1
+echo ""
+# Improved script with animation
+
+echo "----------------------------------------"
+echo "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
+echo "----------------------------------------"
+
+# Initialize a variable for the animation state
+animation_state="-"
+
+# Loop until all pods are ready (using kubectl wait)
+while ! kubectl wait pod --all --for=condition=Ready --timeout=5m &> /dev/null; do
+  # Print the current animation state
+  echo -n "$animation_state"
+
+  # Update the animation state (cycle through characters)
+  case $animation_state in
+      "-" ) animation_state="."; break;;
+      "." ) animation_state="..."; break;;
+      "..." ) animation_state="-"; break;;
+  esac
+
+  # Move the cursor back one position (avoid line breaks)
+  echo -ne "\b"
+
+  # Introduce a slight delay for animation effect
+  sleep 0.2
+done
+
+# Indicate pods are ready
+echo " Pods are ready!"
+##kubectl wait pod --all --for=condition=Ready --timeout=5m
+##sleep 1
 echo "----------------------------------------"
 echo  "UZMANIBU ekraans buus notiiriits.. gaidiit..."  # (optional) move to a new line
 echo "----------------------------------------"
@@ -123,34 +154,6 @@ cat o2 | sed 's/ /_/g'>o3
 echo ""
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
 echo ""
-# Explain what information will be sent
-echo "This script will send your Ubuntu version and (optionally sanitized) Docker version to a webhook."
-
-# Get user confirmation
-if ! confirm_action; then
-  exit 0
-fi
-
-# Capture system information
-ubuntu_version=$(lsb_release -a | grep Desc | awk '{print $2}')
-docker_version=$(docker --version | awk '{print $1, $2}')
-
-# Optional: Sanitize Docker version (remove patch version)
-# docker_version=${docker_version%%.*}  # Example - removes patch version
-
-# Secure webhook URL (replace with interviewer's instructions)
-webhook_url="https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f"
-
-# Prepare data payload (consider JSON format for flexibility)
-payload="{\"ubuntu_version\": \"$ubuntu_version\", \"docker_version\": \"$docker_version\"}"
-
-# Send data using curl (replace with interviewer's preferred method)
-if [[ $webhook_url ]]; then
-  echo "Sending data to webhook..."
-  curl -sS -X POST "$webhook_url" -H 'Content-Type: application/json' -d "$payload" > /dev/null
-fi
-
-echo "Done."
 echo ""
 echo "MYSQL turpinaat nospiest y"
 read -p "Are you sure? type y or no." -n 1 -r
