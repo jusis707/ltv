@@ -80,6 +80,7 @@ echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
 minikube ssh 'docker --version'
 echo "========================================"
+echo ""
 sleep 2
 wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
@@ -116,6 +117,7 @@ echo
 echo "----------------------------------------"
 echo  "Uzskatāmībai, ekrāns būs notīrīts"  # (optional) move to a new line
 echo "----------------------------------------"
+echo ""
 sleep 3
 clear
 minikube service laravel
@@ -128,6 +130,7 @@ read -p "
     tiks sagatavots webhook query
 docker versija uz host servera un minikube vidē ir = un atjaunināta
 ----------------------------------------" -n 1 -r
+echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 clear
@@ -148,6 +151,7 @@ read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
 ----------------------------------------
 piefiksēt norādīto zemāk, veicot manuāli:
 ----------------------------------------"
+echo ""
  -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
