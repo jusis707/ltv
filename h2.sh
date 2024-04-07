@@ -86,8 +86,6 @@ kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
 clear
 minikube ip >ip-kube &
-kubectl  get services
-sleep 1
 #pods_count=$(kubectl get pods | grep -c "Running")
 #while [[ $pods_count -ne $(kubectl get pods | grep -c "") ]]
 #do
@@ -97,8 +95,16 @@ sleep 1
 #echo "All pods are ready"
 sleep 2
 kubectl  get services
+echo "----------------------------------------"
+echo  "UZMANIBU gaida uz podu gataviibu"  # (optional) move to a new line
+echo "----------------------------------------"
 kubectl wait pod --all --for=condition=Ready --timeout=5m
 sleep 1
+echo "----------------------------------------"
+echo  "UZMANIBU ekraans buus notiiriits.. gaidiit..."  # (optional) move to a new line
+echo "----------------------------------------"
+sleep 3
+clear
 minikube service laravel
 echo "gaidiit.."
 sleep 5
