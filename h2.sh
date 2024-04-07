@@ -126,7 +126,7 @@ read -p "lai turpinātu, nospiest y" -n 1 -r
 echo ""
 echo "----------------------------------------"
 echo  "tiek sagatavots webhook query"  # (optional) move to a new line
-echo  "docker versija uz host servera un minikube ir =" 
+echo  "docker versija uz host servera un minikube vidē ir = un atjaunināta" 
 echo "----------------------------------------"
 sleep 3
 if [[ $REPLY =~ ^[Yy]$ ]]
