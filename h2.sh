@@ -96,7 +96,6 @@ kubectl apply -f hpa.yaml
 clear
 minikube ip >ip-kube &
 sleep 2
-kubectl  get services
 echo "----------------------------------------"
 echo  "Gaidam uz konteineru gatavību"  # (optional) move to a new line
 echo "----------------------------------------"
