@@ -1,7 +1,9 @@
 #/bin/bash
-read -p "Are you sure? type y or no.\n
+read -p "Are you sure? type y or no.
 xzxxzx
-zxzxzxxz" -n 1 -r
+zxzxzxxz
+
+" -n 1 -r
 echo ""
 echo "----------------------------------------"
 echo  "UZMANIBU"  # (optional) move to a new line
