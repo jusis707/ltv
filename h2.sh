@@ -1,13 +1,14 @@
 #/bin/bash
 read -p "Are you sure? type y or no.
-xzxxzx
-zxzxzxxz
+----------------------------------------
+               UZMANIBU
+----------------------------------------
 
 " -n 1 -r
 echo ""
-echo "----------------------------------------"
+echo "========================================"
 echo  "UZMANIBU"  # (optional) move to a new line
-echo "----------------------------------------"
+echo "========================================"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 mkdir ~/ltv
