@@ -11,7 +11,8 @@
 ##### Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
 # veikt: sudo usermod -aG docker $USER && newgrp docker
 ##### (lai neveiktu sudo chmod 666 /var/run/docker.sock )
-###### būtiskas izmaiņas, ar ./resources/views/welcome.blade.php
+###### Datne ar nosaukumu "welcome.blade.php" tika pārveidota, lai apliecinātu Laravel pieslēgumu datubāzei.
+izmaiņas, ar ./resources/views/welcome.blade.php
 <div class="links">
    <strong>Database Connected: </strong>
     @php
