@@ -142,6 +142,8 @@ curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 
 echo ""
 echo "augstāk redzamo piefiksēt, un pārliecināties par query datu pareizību atverot saiti"
 echo ""
+kubectl get pods -o name --no-headers=true | sed 's/pod\///g'> ./run.pod
+kubectl cp welcome.blade.php `cat run.pod`:/var/www/html/vdc/resources/views/welcome.blade.php
 echo ""
 read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
 ----------------------------------------
