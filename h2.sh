@@ -16,7 +16,7 @@ clear
 mkdir ~/ltv
 cd ~/ltv
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl mc rsync -y
+sudo apt-get install apt-transport-https ca-certificates curl mc rsync docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin -y
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 sudo groupadd docker
@@ -33,7 +33,6 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin -y
 #sudo echo "{ "insecure-registries" : [ "10.0.0.0/16" ] }" > /etc/docker/daemon.json
 #sed 's/\[Service\]/\[Service\] \nEnvironment=DOCKER_OPTS=--insecure-registry=10.0.0.0/16/' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
