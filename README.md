@@ -9,3 +9,4 @@
 ###### -   minikube ssh
 ###### -   minikube service laravel
 ##### Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
+# veikt: sudo usermod -aG docker $USER && newgrp docker
