@@ -10,3 +10,4 @@
 ###### -   minikube service laravel
 ##### Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
 # veikt: sudo usermod -aG docker $USER && newgrp docker
+##### (lai neveiktu sudo chmod 666 /var/run/docker.sock )
