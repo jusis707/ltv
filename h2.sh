@@ -73,6 +73,7 @@ echo "Docker versija minikube vidē:"
 minikube ssh 'docker --version'
 echo "====================================================="
 echo "...uzgaidīt"
+sleep 2
 clear
 sleep 3
 echo "startējam yaml manifestus..."
