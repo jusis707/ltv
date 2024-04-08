@@ -112,6 +112,8 @@ while kill -0 $pid 2>/dev/null; do  # Check if the process is running
     done
 done
 echo
+echo ""
+clear
 ##kubectl wait pod --all --for=condition=Ready --timeout=15m
 ##sleep 1
 echo "----------------------------------------"
