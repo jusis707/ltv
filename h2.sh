@@ -1,11 +1,13 @@
 #/bin/bash
 read -p "
-========================================
-               UZMANĪBU
-========================================
-           y lai turpinātu
-          CTRL + C lai izietu
-========================================
+=====================================================
+                    UZMANĪBU
+                  bija jāveic:
+    sudo usermod -aG docker $USER && newgrp docker
+=====================================================
+                y lai turpinātu
+               CTRL + C lai izietu
+=====================================================
 (y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -57,11 +59,11 @@ minikube addons enable registry
 echo "uzgaidīt..."
 minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
 clear
-echo "========================================"
+echo "====================================================="
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
 minikube ssh 'docker --version'
-echo "========================================"
+echo "====================================================="
 echo "...uzgaidīt"
 clear
 sleep 3
