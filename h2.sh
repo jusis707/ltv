@@ -83,14 +83,17 @@ wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/cm.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/c.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/sec.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/in.yaml -q
 kubectl apply -f p.yaml
 kubectl apply -f cm.yaml
 kubectl apply -f s.yaml
 kubectl apply -f sec.yaml
 kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
+kubectl apply -f in.yaml
 clear
 minikube ip >ip-kube &
+sudo echo "$(minikube ip) laravel.ltv.lv" >> /etc/hosts
 sleep 2
 echo "----------------------------------------"
 echo  "Gaidam uz konteineru gatavību"  # (optional) move to a new line
