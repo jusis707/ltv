@@ -54,6 +54,8 @@ minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 echo ""
 clear
 minikube addons enable metrics-server
+echo ""
+clear
 echo "uzgaidīt..."
 minikube addons enable ingress
 echo ""
