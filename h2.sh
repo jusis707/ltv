@@ -95,7 +95,7 @@ kubectl apply -f hpa.yaml
 kubectl apply -f in.yaml
 clear
 minikube ip >ip-kube &
-sudo echo "$(minikube ip) laravel.ltv.lv" >> /etc/hosts
+sudo -- sh -c "echo $(minikube ip) laravel.ltv.lv >> /etc/hosts"
 sleep 2
 echo "----------------------------------------"
 echo  "Gaidam uz konteineru gatavību"  # (optional) move to a new line
@@ -112,7 +112,7 @@ while kill -0 $pid 2>/dev/null; do  # Check if the process is running
     done
 done
 echo
-echo ""
+echo -e "\n"
 clear
 ##kubectl wait pod --all --for=condition=Ready --timeout=15m
 ##sleep 1
