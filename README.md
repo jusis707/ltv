@@ -11,3 +11,15 @@
 ##### Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
 # veikt: sudo usermod -aG docker $USER && newgrp docker
 ##### (lai neveiktu sudo chmod 666 /var/run/docker.sock )
+###### būtiskas izmaiņas, ar ./resources/views/welcome.blade.php
+<div class="links">
+   <strong>Database Connected: </strong>
+    @php
+        try {
+            DB::connection()->getPDO();
+            echo DB::connection()->getDatabaseName();
+            } catch (\Exception $e) {
+            echo 'None';
+        }
+    @endphp
+</div>"
