@@ -86,6 +86,7 @@ wget https://github.com/jusis707/ltv/raw/main/cm.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/c.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/sec.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/in.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/welcome.blade.php -q
 kubectl apply -f p.yaml
 kubectl apply -f cm.yaml
 kubectl apply -f s.yaml
