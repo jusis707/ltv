@@ -38,6 +38,7 @@ sudo apt-get update
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
 echo 'aG9yaXpvbnRzCg==' | base64 --decode > ~/ltv/p.txt
 cat ~/ltv/p.txt | docker login --username jusis707 --password-stdin docker.io
+clear
 minikube config set cpus 4
 minikube config set memory 4084
 sudo usermod -aG docker $USER
