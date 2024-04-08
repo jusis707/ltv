@@ -6,7 +6,7 @@ read -p "
            y lai turpinātu
           CTRL + C lai izietu
 ========================================
-" -n 1 -r
+(y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -31,7 +31,7 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin -y
 #sudo echo "{ "insecure-registries" : [ "10.0.0.0/16" ] }" > /etc/docker/daemon.json
 #sed 's/\[Service\]/\[Service\] \nEnvironment=DOCKER_OPTS=--insecure-registry=10.0.0.0/16/' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
 #mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
@@ -50,40 +50,21 @@ FOO
 sudo chmod 666 /var/run/docker.sock
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 minikube addons enable metrics-server
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
+echo "uzgaidīt..."
 minikube addons enable ingress
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
-echo "pacietiba..."
+echo "uzgaidīt..."
 minikube addons enable registry
+echo "uzgaidīt..."
 minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
 clear
-sleep 1
 echo "========================================"
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
 minikube ssh 'docker --version'
 echo "========================================"
-echo ""
-sleep 2
+echo "...uzgaidīt"
+clear
+sleep 3
 wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
@@ -120,18 +101,19 @@ echo "----------------------------------------"
 echo  "Uzskatāmībai, ekrāns būs notīrīts"  # (optional) move to a new line
 echo "----------------------------------------"
 echo ""
-sleep 3
+sleep 2
 clear
 minikube service laravel
 echo "augstāk redzamo piefiksēt"
-sleep 5
+sleep 3
 echo ""
 read -p "
 ----------------------------------------
       lai turpinātu, nospiest y
     tiks sagatavots webhook query
 docker versija uz host servera un minikube vidē ir = un atjaunināta
-----------------------------------------" -n 1 -r
+----------------------------------------
+(y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -153,7 +135,8 @@ read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
 ----------------------------------------
 piefiksēt norādīto zemāk, veicot manuāli:
 nospiest y un ENTER
-----------------------------------------" -n 1 -r
+----------------------------------------
+(y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
