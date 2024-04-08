@@ -106,7 +106,7 @@ while kill -0 $pid 2>/dev/null; do  # Check if the process is running
     done
 done
 echo
-##kubectl wait pod --all --for=condition=Ready --timeout=5m
+##kubectl wait pod --all --for=condition=Ready --timeout=15m
 ##sleep 1
 echo "----------------------------------------"
 echo  "Uzskatāmībai, ekrāns būs notīrīts"  # (optional) move to a new line
