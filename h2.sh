@@ -65,6 +65,7 @@ echo "========================================"
 echo "...uzgaidīt"
 clear
 sleep 3
+echo "startējam yaml manifestus..."
 wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
