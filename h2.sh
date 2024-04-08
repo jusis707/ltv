@@ -51,12 +51,16 @@ FOO
 # nedroši, lai nestartētu minikube ar --force
 sudo chmod 666 /var/run/docker.sock
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
+clear
 minikube addons enable metrics-server
 echo "uzgaidīt..."
+clear
 minikube addons enable ingress
 echo "uzgaidīt..."
+clear
 minikube addons enable registry
 echo "uzgaidīt..."
+clear
 minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
 clear
 echo "====================================================="
