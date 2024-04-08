@@ -93,7 +93,6 @@ kubectl apply -f s.yaml
 kubectl apply -f sec.yaml
 kubectl apply -f c.yaml
 kubectl apply -f hpa.yaml
-kubectl apply -f in.yaml
 clear
 minikube ip >ip-kube &
 sudo -- sh -c "echo $(minikube ip) laravel.ltv.lv >> /etc/hosts"
@@ -114,6 +113,7 @@ while kill -0 $pid 2>/dev/null; do  # Check if the process is running
 done
 echo
 echo -e "\n"
+kubectl apply -f in.yaml
 clear
 ##kubectl wait pod --all --for=condition=Ready --timeout=15m
 ##sleep 1
