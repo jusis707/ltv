@@ -5,8 +5,8 @@ read -p "
                                      bija jāveic:
             sudo sgroupadd docker && usermod -aG docker $USER && newgrp docker
 ===========================================================================================
-                y lai turpinātu
-               CTRL + C lai izietu
+                                  y lai turpinātu
+                                CTRL + C lai izietu
 ===========================================================================================
 (y)" -n 1 -r
 echo ""
@@ -160,8 +160,7 @@ then
 clear
 wget https://github.com/jusis707/ltv/raw/main/inst.txt -q
 clear
-cat ~/ltv/inst.txt | sed "s/ipk/`cat ip-kube`/" > ~/ltv/instrukcija.txt
-echo -e $(cat ~/ltv/instrukcija.txt)
+echo -e $(cat ~/ltv/inst.txt)
 fi
 fi
 fi
