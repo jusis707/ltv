@@ -51,9 +51,6 @@ spec:
                   - "sh" 
                   - "-c"
                   - >
-                    mkdir /var/www/vdc;
-                    cp -R /var/www/html/ /var/www/vdc/;
-                    chown -R www-data:www-data /var/www/vdc;
                     php artisan key:generate;
                     sed -i
                     "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/html/.env;
