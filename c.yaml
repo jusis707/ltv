@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: laravel   # php container with installed laravel app
-          image: jusis707/lav:13
+          image: jusis707/lav:14
           resources:
             limits:
               cpu: 300m
