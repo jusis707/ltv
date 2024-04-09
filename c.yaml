@@ -51,7 +51,6 @@ spec:
                   - "sh" 
                   - "-c"
                   - >
-                    #mv /var/www/vdc/.env.example /var/www/vdc/.env;
                     mkdir /var/www/vdc;
                     cp -R /var/www/html/ /var/www/vdc/;
                     chown -R www-data:www-data /var/www/vdc;
@@ -62,7 +61,8 @@ spec:
                     "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/html/.env;
                     sed -i
                     "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/html/.env;
-                    cp -R /var/www/vdc/ /var/www/html/;
+                    sed -i
+                    "s/DB_HOST=stickersng-mysql/DB_HOST=127.0.0.1/g" /var/www/html/.env;
                     chown -R www-data:www-data /var/www/html;
           volumeMounts:
 # mount volume for communication with nginx
