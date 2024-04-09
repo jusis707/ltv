@@ -41,9 +41,9 @@ spec:
                   key: dbPasswordKey
           ports:
             - containerPort: 9000
-              name: laravel-9000
+              name: php-9000
             - containerPort: 8000
-              name: laravel-8000
+              name: php-8000
           lifecycle:  
             postStart:  # commands that will be executed after container was created
               exec:
@@ -129,4 +129,3 @@ spec:
 # volume for nginx config from configmap
           configMap:
             name: nginx-config
-
