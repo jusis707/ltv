@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: laravel   # php container with installed laravel app
-          image: jusis707/lav:14
+          image: reasonebeat/laravel-realworld-example-app
           resources:
             limits:
               cpu: 300m
