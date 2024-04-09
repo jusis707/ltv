@@ -51,14 +51,17 @@ spec:
                   - "sh" 
                   - "-c"
                   - >
-                    mv /var/www/vdc/.env.example /var/www/vdc/.env;
+                    #mv /var/www/vdc/.env.example /var/www/vdc/.env;
+                    mkdir /var/www/vdc;
+                    cp -R /var/www/html/ /var/www/vdc/;
+                    chown -R www-data:www-data /var/www/vdc;
                     php artisan key:generate;
                     sed -i
-                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env;
+                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/html/.env;
                     sed -i
-                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env;
+                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/html/.env;
                     sed -i
-                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
+                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/html/.env;
                     cp -R /var/www/vdc/ /var/www/html/;
                     chown -R www-data:www-data /var/www/html;
           volumeMounts:
