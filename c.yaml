@@ -60,6 +60,7 @@ spec:
                     "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/html/.env;
                     sed -i
                     "s/DB_HOST=stickersng-mysql/DB_HOST=127.0.0.1/g" /var/www/html/.env;
+                    cp /var/www/html/.env /var/www/vdc/;
                     chown -R www-data:www-data /var/www/html;
           volumeMounts:
 # mount volume for communication with nginx
