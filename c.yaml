@@ -60,7 +60,6 @@ spec:
                     sed -i
                     "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
                     cp -R /var/www/vdc/ /var/www/html/;
-                    chown -R www-data:www-data /var/www/html;
           volumeMounts:
 # mount volume for communication with nginx
             - name: shared-files
