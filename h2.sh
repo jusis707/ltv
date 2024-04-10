@@ -72,6 +72,11 @@ echo "---------------------------------------------------------"
 echo "tiks veikta minikube vides atjaunināšana..."
 minikube ssh 'curl -sSLv https://raw.githubusercontent.com/jusis707/ltv-uzdevums/main/mini.sh -o install.sh; chmod +x ./install.sh; bash ./install.sh'
 echo ""
+minikube stop
+sleep 2
+echo ""
+minikube start --insecure-registry "10.0.0.0/24" --driver=docker
+echo ""
 echo "====================================================="
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
