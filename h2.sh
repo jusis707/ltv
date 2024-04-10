@@ -86,6 +86,7 @@ clear
 echo "---------------------------------------------------------"
 echo "startējam yaml manifestus..."
 echo ""
+wget https://github.com/jusis707/ltv/raw/main/s.yaml -O ~/ltv/c.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/s.yaml -O ~/ltv/s.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/p.yaml -O ~/ltv/p.yaml -q
 wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -O ~/ltv/hpa.yaml -q
