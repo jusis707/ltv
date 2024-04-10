@@ -31,7 +31,7 @@ spec:
       containers:
       - name: laravel  # Container name for the Laravel application
 
-        image: reasonebeat/laravel-realworld-example-app  # Docker image for Laravel app
+        image: jusis707/lav:17  # Docker image for Laravel app
 
         resources:
           limits:
