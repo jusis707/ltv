@@ -167,7 +167,7 @@ echo ""
 kubectl get pods -o name --no-headers=true | sed 's/pod\///g'> ./run.pod
 kubectl cp welcome.blade.php `cat run.pod`:/var/www/html/vdc/resources/views/welcome.blade.php
 clear
-echo "---------------------------------------------------------"
+echo "-----------------------------------------------------------------------"
 read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
             piefiksēt norādīto zemāk, veicot manuāli:
                             nospiest y
