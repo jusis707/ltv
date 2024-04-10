@@ -1,132 +1,104 @@
 # Deployment for a Laravel application with separate MySQL and Nginx containers
-
 apiVersion: apps/v1  # Kubernetes API version for deployments (v1.9.0+)
-
 kind: Deployment
   # Kind of Kubernetes resource: Deployment
-
 metadata:
   name: laravel  # Deployment name
-
   labels:
     app: laravel  # Label for identifying pods belonging to this deployment
-
 spec:
   # Deployment specification
-
   selector:
     matchLabels:
       app: laravel  # Select pods with label "app: laravel"
-
   replicas: 1  # Number of pods (Laravel application instances) to run
-
   template:
     # Pod template for deployment
-
     metadata:
       labels:
         app: laravel  # Inherited label for pods
-
     spec:
       containers:
       - name: laravel  # Container name for the Laravel application
-
-        image: jusis707/lav:17  # Docker image for Laravel app
-
+        image: reasonebeat/laravel-realworld-example-app  # Docker image for Laravel app
         resources:
           limits:
             cpu: 300m  # CPU resource limit
           requests:
             cpu: 200m  # CPU resource request (minimum guaranteed)
             memory: 256Mi  # Memory resource request
-
         env:  # Environment variables for Laravel application
-
           # Inject environment variables from a secret named "mysql-secret"
           - name: MYSQL_DATABASE
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbName
-
           - name: MYSQL_USER
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbUserNameKey
-
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbPasswordKey
-
         ports:
         - containerPort: 9000
           name: laravel-9000  # Port for internal communication (optional)
-
         - containerPort: 8000
           name: laravel-8000  # Port for Laravel application (usually 80)
-
         lifecycle:
           postStart:  # Commands executed after container startup
-
             exec:
               command:  # Shell command to configure Laravel environment
-
-                - sh  # Use shell
-                - -c  # Execute following command
-
-                  # Concatenated string for multiple commands
-                  > mv /var/www/vdc/.env.example /var/www/vdc/.env; \
-                  php artisan key:generate; \
-                  sed -i "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env; \
-                  sed -i "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env; \
-                  sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env; \
-                  cp -R /var/www/vdc/ /var/www/html/;
-
+                  - "sh" 
+                  - "-c"
+                  - >
+                    mv /var/www/vdc/.env.example /var/www/vdc/.env;
+                    php artisan key:generate;
+                    sed -i
+                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
+                    cp -R /var/www/vdc/ /var/www/html/;
+                    chown -R www-data:www-data /var/www/html;
         volumeMounts:
         - name: shared-files  # Mount point for shared volume
           mountPath: /var/www/html/vdc/  # Directory inside container
-
       - image: mysql:8.0  # Docker image for MySQL database
-
         resources:
           limits:
             cpu: 300m  # CPU resource limit
           requests:
             cpu: 200m  # CPU resource request (minimum guaranteed)
             memory: 256Mi  # Memory resource request
-
         name: mysql  # Container name for MySQL
-
         env:  # Environment variables for MySQL
-
           # Inject environment variables from a secret named "mysql-secret"
           - name: MYSQL_DATABASE
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbName
-
           - name: MYSQL_USER
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbUserNameKey
-
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: dbPasswordKey
-
           - name: MYSQL_ROOT_PASSWORD  # Additional environment variable
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
                 key: rootPasswordKey  # Assuming this key exists in the secret
-
         ports:
         - containerPort: 3306
           name: mysql  # Port
