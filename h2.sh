@@ -9,6 +9,13 @@ read -p "
                                   y lai turpinātu
                                 CTRL + C lai izietu
                                   risinājums Nr.1
+                                  
+                          Uzstādīšana notiks interaktīvi...
+                       Lūgums sekot norādījumiem uz ekrāna
+ Iespējamie izvēles varianti ir apstiprinoši (tikai), jo zūd jēga, ar cita veida darbībām
+===========================================================================================
+                                  y lai turpinātu
+                                CTRL + C lai izietu
 ===========================================================================================
 (y)" -n 1 -r
 echo ""
