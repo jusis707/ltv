@@ -3,11 +3,12 @@ read -p "
 ===========================================================================================
                                        UZMANĪBU
                                      bija jāveic:
-                                     sudo groupadd docker
-                                     sudo usermod -aG docker $USER && newgrp docker
+                                sudo groupadd docker
+                     sudo usermod -aG docker $USER && newgrp docker
 ===========================================================================================
                                   y lai turpinātu
                                 CTRL + C lai izietu
+                                  risinājums Nr.1
 ===========================================================================================
 (y)" -n 1 -r
 echo ""
@@ -20,8 +21,10 @@ sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates curl mc rsync docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin -y
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
-sudo groupadd docker
+clear
+echo "---------------------------------------------------------"
 minikube version
+sleep 1
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -34,73 +37,69 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-#sudo echo "{ "insecure-registries" : [ "10.0.0.0/16" ] }" > /etc/docker/daemon.json
-#sed 's/\[Service\]/\[Service\] \nEnvironment=DOCKER_OPTS=--insecure-registry=10.0.0.0/16/' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
-#mv /lib/systemd/system/docker.service.tmp /lib/systemd/system/docker.service
 echo 'aG9yaXpvbnRzCg==' | base64 --decode > ~/ltv/p.txt
 cat ~/ltv/p.txt | docker login --username jusis707 --password-stdin docker.io
 clear
 minikube config set cpus 4
-minikube config set memory 4084
+minikube config set memory 4096
 sudo usermod -aG docker $USER
-#&& newgrp docker
-newgrp docker << FOO
-FOO
-#sudo usermod -aG docker $USER
-#sudo newgrp docker
-#sudo usermod -aG docker $USER && newgrp docker
-# nedroši, lai nestartētu minikube ar --force
-#sudo chmod 666 /var/run/docker.sock
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 echo ""
 clear
+echo "---------------------------------------------------------"
+echo "uzgaidīt..."
 minikube addons enable metrics-server
 echo ""
 clear
+echo "---------------------------------------------------------"
 echo "uzgaidīt..."
 minikube addons enable ingress
 echo ""
 clear
+echo "---------------------------------------------------------"
 echo "uzgaidīt..."
 minikube addons enable registry
 echo ""
 clear
-echo "uzgaidīt..."
+echo "---------------------------------------------------------"
+echo "tiks veikta minikube vides atjaunināšana..."
 minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
+echo ""
 clear
 echo "====================================================="
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
 minikube ssh 'docker --version'
 echo "====================================================="
-echo "...uzgaidīt"
 sleep 2
 clear
-sleep 3
+echo "---------------------------------------------------------"
 echo "startējam yaml manifestus..."
-echo "----------------------------------------"
 echo ""
-wget https://github.com/jusis707/ltv/raw/main/s.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/p.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/cm.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/c.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/sec.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/in.yaml -q
-wget https://github.com/jusis707/ltv/raw/main/welcome.blade.php -q
-kubectl apply -f p.yaml
-kubectl apply -f cm.yaml
-kubectl apply -f s.yaml
-kubectl apply -f sec.yaml
-kubectl apply -f c.yaml
-kubectl apply -f hpa.yaml
+wget https://github.com/jusis707/ltv/raw/main/s.yaml -O ~/ltv/s.yaml-q
+wget https://github.com/jusis707/ltv/raw/main/p.yaml -O ~/ltv/p.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/hpa.yaml -O ~/ltv/hpa.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/cm.yaml -O ~/ltv/cm.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/c.yaml -O ~/ltv/s.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/sec.yaml -O ~/ltv/sec.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/in.yaml -O ~/ltv/in.yaml -q
+wget https://github.com/jusis707/ltv/raw/main/welcome.blade.php -O ~/ltv/welcome.blade.php -q
+kubectl apply -f ~/ltv/sec.yaml
+kubectl apply -f ~/ltv/c.yaml
+kubectl apply -f ~/ltv/p.yaml
+kubectl apply -f ~/ltv/cm.yaml
+kubectl apply -f ~/ltv/s.yaml
+kubectl apply -f ~/ltv/hpa.yaml
 clear
 minikube ip >ip-kube &
+echo "---------------------------------------------------------"
+echo "var tikt jautāta lietotāja parole (laravel.ltv.lv pievienošana /etc/hosts)..."
+echo ""
 sudo -- sh -c "echo $(minikube ip) laravel.ltv.lv >> /etc/hosts"
-sleep 2
-echo "----------------------------------------"
-echo  "Gaidam uz konteineru gatavību"  # (optional) move to a new line
-echo "----------------------------------------"
+sleep 1
+clear
+echo "---------------------------------------------------------"
+echo  "Gaidam uz konteineru gatavību"
 echo ""
 kubectl wait pod --all --for=condition=Ready --timeout=5m 2>/dev/null &
 pid=$!  # Capture the process ID of the previous command
@@ -114,26 +113,31 @@ while kill -0 $pid 2>/dev/null; do  # Check if the process is running
 done
 echo
 echo -e "\n"
+clear
+echo "---------------------------------------------------------"
+echo  "startējam ingress manifestu..."
 kubectl apply -f in.yaml
+sleep 1
 clear
-##kubectl wait pod --all --for=condition=Ready --timeout=15m
-##sleep 1
-echo "----------------------------------------"
-echo  "Uzskatāmībai, ekrāns būs notīrīts"  # (optional) move to a new line
-echo "----------------------------------------"
+echo "---------------------------------------------------------"
+echo  "Uzskatāmībai, ekrāns būs notīrīts"
 echo ""
-sleep 2
+sleep 1
 clear
+echo ""
+echo ""
 minikube service laravel
-echo "augstāk redzamo piefiksēt"
+echo "---------------------------------------------------------"
+echo "pēc izvēles, augstāk redzamo piefiksēt"
 sleep 3
 echo ""
 read -p "
-----------------------------------------
-      lai turpinātu, nospiest y
-    tiks sagatavots webhook query
-docker versija uz host servera un minikube vidē ir = un atjaunināta
-----------------------------------------
+-----------------------------------------------------------------------------
+                     lai turpinātu, nospiest y
+                   tiks sagatavots webhook query
+             (atvērt pārlūkprogrammu vai izmanto curl)
+       docker versija uz host servera un minikube vidē ir = un atjaunināta
+-----------------------------------------------------------------------------
 (y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -144,21 +148,23 @@ cat /etc/lsb-release | sed -n 4p | awk '{print $2}' >>o1
 minikube ssh 'docker --version' | awk '{print $1, $2, $3}' | sed 's/,//' >>o1
 cat o1 | awk '{print}' ORS='/' >o2
 cat o2 | sed 's/ /_/g'>o3
+echo ""
+echo "---------------------------------------------------------"
 echo "Pārlūkprogramā atvērt:
 https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/a130bafd-3540-4fe2-a973-b1d106efae33/1
 "
 curl -sS -X POST 'https://webhook.site/e7aa41df-d4ef-4d54-ae30-d6d74eca380f' -H 'content-type: application/json' -d $(cat o3) -o /dev/null
-echo ""
+echo "---------------------------------------------------------"
 echo "augstāk redzamo piefiksēt, un pārliecināties par query datu pareizību atverot saiti"
 echo ""
 kubectl get pods -o name --no-headers=true | sed 's/pod\///g'> ./run.pod
 kubectl cp welcome.blade.php `cat run.pod`:/var/www/html/vdc/resources/views/welcome.blade.php
-echo ""
+clear
+echo "---------------------------------------------------------"
 read -p "lai turpinātu un pārietu uz MYSQL pārbaudi nospiest y
-----------------------------------------
-piefiksēt norādīto zemāk, veicot manuāli:
-nospiest y un ENTER
-----------------------------------------
+            piefiksēt norādīto zemāk, veicot manuāli:
+                            nospiest y
+-----------------------------------------------------------------------------
 (y)" -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
