@@ -1,0 +1,131 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: laravel
+  labels:
+    app: laravel
+spec:
+  selector:
+    matchLabels:
+      app: laravel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      containers:
+        - name: laravel   # php container with installed laravel app
+          image: reasonebeat/laravel-realworld-example-app
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          env:    # get environment variables from secrets
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbName
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbUserNameKey
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbPasswordKey
+          ports:
+            - containerPort: 9000
+              name: laravel-9000
+            - containerPort: 8000
+              name: laravel-8000
+          lifecycle:  
+            postStart:  # commands that will be executed after container was created
+              exec:
+                command:  #generate key, 
+                  - "sh" 
+                  - "-c"
+                  - >
+                    mv /var/www/vdc/.env.example /var/www/vdc/.env;
+                    php artisan key:generate;
+                    sed -i
+                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
+                    cp -R /var/www/vdc/ /var/www/html/;
+                    chown -R www-data:www-data /var/www/html;
+          volumeMounts:
+# mount volume for communication with nginx
+            - name: shared-files
+              mountPath: /var/www/html/vdc/
+        - image: mysql:8.0 # mysql container for keeping php data 
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          name: mysql
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbName
+            - name: MYSQL_USER
+              valueFrom:  
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbUserNameKey
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbPasswordKey
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: rootPasswordKey
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts: # volume for mysql data
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+        - name: nginx   # nginx web server for php app
+          image: nginx:latest
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-files
+# mount volume for communication between nginx and php
+              mountPath: /var/www/html/vdc/
+            - name: nginx-config-volume # mount volume for nginx config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: mysql-persistent-storage  # mysql storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        - name: shared-files              
+# volume for communication between nginx and php
+          emptyDir: {}
+        - name: nginx-config-volume       
+# volume for nginx config from configmap
+          configMap:
+            name: nginx-config
+

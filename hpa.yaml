@@ -1,11 +1,11 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  creationTimestamp: "2024-04-08T10:20:38Z"
+  creationTimestamp: "2024-04-07T05:17:06Z"
   name: laravel
   namespace: default
-  resourceVersion: "5583"
-  uid: a029c976-0c84-4944-9d1b-f36d6cb63251
+  resourceVersion: "4349"
+  uid: 695f0a2d-6491-42d5-bd60-11a71bee4fd1
 spec:
   maxReplicas: 4
   metrics:
@@ -22,18 +22,18 @@ spec:
     name: laravel
 status:
   conditions:
-  - lastTransitionTime: "2024-04-08T10:20:42Z"
+  - lastTransitionTime: "2024-04-07T05:17:21Z"
     message: recommended size matches current size
     reason: ReadyForNewScale
     status: "True"
     type: AbleToScale
-  - lastTransitionTime: "2024-04-08T10:20:42Z"
+  - lastTransitionTime: "2024-04-07T05:17:21Z"
     message: the HPA was able to successfully calculate a replica count from cpu resource
       utilization (percentage of request)
     reason: ValidMetricFound
     status: "True"
     type: ScalingActive
-  - lastTransitionTime: "2024-04-08T10:20:42Z"
+  - lastTransitionTime: "2024-04-07T05:17:21Z"
     message: the desired count is within the acceptable range
     reason: DesiredWithinRange
     status: "False"
@@ -42,8 +42,9 @@ status:
   - resource:
       current:
         averageUtilization: 1
-        averageValue: 7m
+        averageValue: 6m
       name: cpu
     type: Resource
   currentReplicas: 1
   desiredReplicas: 1
+  lastScaleTime: "2024-04-07T05:26:39Z"
