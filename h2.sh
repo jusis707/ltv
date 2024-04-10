@@ -3,9 +3,8 @@ read -p "
 ===========================================================================================
                                        UZMANĪBU
                                      bija jāveic:
+                                     sudo groupadd docker
                                      sudo usermod -aG docker $USER && newgrp docker
-            sudo sgroupadd docker && usermod -aG docker $USER
-            sudo newgrp docker
 ===========================================================================================
                                   y lai turpinātu
                                 CTRL + C lai izietu
