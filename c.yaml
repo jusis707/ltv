@@ -1,89 +1,130 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  # Unique name for the deployment
   name: laravel
   labels:
-    # Labels for identifying pods belonging to this deployment
     app: laravel
 spec:
-  replicas: 1 # Number of replicas for the Laravel application (1 in this case)
   selector:
     matchLabels:
-      app: laravel # Selector for scaling and operations
+      app: laravel
+  replicas: 1
   template:
     metadata:
       labels:
-        app: laravel # Labels for identifying pods managed by the deployment
+        app: laravel
     spec:
       containers:
-      - name: laravel # Container running the Laravel application
-        image: reasonebeat/laravel-realworld-example-app
-        resources:
-          limits:
-            cpu: 300m # Limit CPU usage to 300 millicores
-          requests:
-            cpu: 200m # Request minimum CPU usage of 200 millicores
-            memory: 256Mi # Request minimum memory of 256 Mebibytes
-        env:
-        - name: MYSQL_DATABASE # Environment variable for database name
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret # Reference secret named "mysql-secret"
-              key: dbName # Key within the secret for database name
-        - name: MYSQL_USER # Environment variable for database username
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: dbUserNameKey # Key within the secret for username
-        - name: MYSQL_PASSWORD # Environment variable for database password
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: dbPasswordKey # Key within the secret for password
-        ports:
-        - containerPort: 9000 # Expose port 9000 within the pod
-          name: laravel-9000 # Descriptive name for the port
-        - containerPort: 8000 # Expose port 8000 within the pod (optional)
-          name: laravel-8000 # Descriptive name for the port (optional)
-        lifecycle:
-          postStart: # Commands to execute after container creation
-            exec:
-              command: # Command to run (uses a shell script)
-              - sh # Shell interpreter
-              - -c # Execute the following command
-                # This script performs the following actions:
-                - mv /var/www/vdc/.env.example /var/www/vdc/.env # Move environment file
-                - php artisan key:generate # Generate application key
-                # Update environment file with database credentials from secrets
-                - sed -i "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env
-                - sed -i "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env
-                - sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env
-                - cp -R /var/www/vdc/ /var/www/html/ # Copy application files
-                - chown -R www-data:www-data /var/www/html # Set ownership for web server
+        - name: laravel   # php container with installed laravel app
+          image: reasonebeat/laravel-realworld-example-app
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          env:    # get environment variables from secrets
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbName
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbUserNameKey
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbPasswordKey
+          ports:
+            - containerPort: 9000
+              name: laravel-9000
+            - containerPort: 8000
+              name: laravel-8000
+          lifecycle:  
+            postStart:  # commands that will be executed after container was created
+              exec:
+                command:  #generate key, 
+                  - "sh" 
+                  - "-c"
+                  - >
+                    mv /var/www/vdc/.env.example /var/www/vdc/.env;
+                    php artisan key:generate;
+                    sed -i
+                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env;
+                    sed -i
+                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
+                    cp -R /var/www/vdc/ /var/www/html/;
+                    chown -R www-data:www-data /var/www/html;
+          volumeMounts:
+# mount volume for communication with nginx
+            - name: shared-files
+              mountPath: /var/www/html/vdc/
+        - image: mysql:8.0 # mysql container for keeping php data 
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          name: mysql
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbName
+            - name: MYSQL_USER
+              valueFrom:  
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbUserNameKey
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbPasswordKey
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: rootPasswordKey
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts: # volume for mysql data
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+        - name: nginx   # nginx web server for php app
+          image: nginx:latest
+          resources:
+            limits:
+              cpu: 300m
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-files
+# mount volume for communication between nginx and php
+              mountPath: /var/www/html/vdc/
+            - name: nginx-config-volume # mount volume for nginx config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
-      - name: shared-files # Volume for communication between containers
-        mountPath: /var/www/html/vdc/ # Mount path within the container
-
-      # Separate container definition for MySQL
-      - name: mysql
-        image: mysql:8.0
-        resources:
-          limits:
-            cpu: 300m # Limit CPU usage to 300 millicores
-          requests:
-            cpu: 200m # Request minimum CPU usage of 200 millicores
-            memory: 256Mi # Request minimum memory of 256 Mebibytes
-        env:
-          - name: MYSQL_DATABASE # Environment variable for database name
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret # Reference secret named "mysql-secret"
-                key: dbName # Key within the secret for database name
-          - name: MYSQL_USER # Environment variable for database username
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: dbUserNameKey # Key within the secret for username
-          - name: MYSQL_PASSWORD
-
+        - name: mysql-persistent-storage  # mysql storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        - name: shared-files              
+# volume for communication between nginx and php
+          emptyDir: {}
+        - name: nginx-config-volume       
+# volume for nginx config from configmap
+          configMap:
+            name: nginx-config
