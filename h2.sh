@@ -70,9 +70,8 @@ echo ""
 clear
 echo "---------------------------------------------------------"
 echo "tiks veikta minikube vides atjaunināšana..."
-minikube ssh 'sudo apt-get install wget -y;wget https://github.com/jusis707/ltv/raw/main/mini.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh'
+minikube ssh 'curl -sSLv https://raw.githubusercontent.com/jusis707/ltv-uzdevums/main/mini.sh -o install.sh; chmod +x ./install.sh; bash ./install.sh'
 echo ""
-clear
 echo "====================================================="
 echo  "UZMANĪBU"  # (optional) move to a new line
 echo "Docker versija minikube vidē:"
