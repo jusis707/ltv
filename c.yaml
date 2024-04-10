@@ -51,7 +51,7 @@ spec:
                   - "sh" 
                   - "-c"
                   - >
-                    ls -al;
+                    mkdir /mnt/data;
           volumeMounts:
 # mount volume for communication with nginx
             - name: shared-files
