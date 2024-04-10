@@ -52,7 +52,7 @@ spec:
                   - "-c"
                   - >
                     mkdir /mnt/data;
-                    chmod -R 777 /mnt/data
+                    chmod -R 777 /mnt/data;
           volumeMounts:
 # mount volume for communication with nginx
             - name: shared-files
