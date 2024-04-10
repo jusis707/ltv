@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel
+  labels:
+    app: laravel
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32223
+    port: 80
+    name: php-8000
+  - port: 9000
+    name: php-9000
+  - port: 3306
+    name: mysql
+  selector:
+    app: laravel
