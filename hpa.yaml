@@ -1,50 +1,61 @@
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
+# Horizontal Pod Autoscaler (HPA) for the "laravel" deployment
+
+apiVersion: autoscaling/v2  # Kubernetes API version for HPAs (v2)
+
+kind: HorizontalPodAutoscaler  # Kind of Kubernetes resource: HPA
+
 metadata:
-  creationTimestamp: "2024-04-07T05:17:06Z"
-  name: laravel
-  namespace: default
-  resourceVersion: "4349"
-  uid: 695f0a2d-6491-42d5-bd60-11a71bee4fd1
+  # Metadata for the HPA resource
+
+  name: laravel  # HPA name (matches the deployment it scales)
+  namespace: default  # Namespace where the HPA is deployed (default)
+  # ... other metadata omitted for brevity (creationTimestamp, resourceVersion, uid)
+
 spec:
-  maxReplicas: 4
+  # HPA configuration
+
+  maxReplicas: 4  # Maximum number of pods the HPA can scale the deployment to
+  minReplicas: 1  # Minimum number of pods the HPA can scale the deployment down to
+
   metrics:
-  - resource:
-      name: cpu
-      target:
-        averageUtilization: 25
-        type: Utilization
-    type: Resource
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: laravel
+  - type: Resource  # Metric type: Resource utilization
+    resource:  # Resource to track
+      name: cpu  # CPU utilization for scaling
+      target:  # Target utilization for scaling
+        type: Utilization  # Target type: CPU usage percentage
+        averageUtilization: 25  # Desired average CPU utilization (25%)
+
+  scaleTargetRef:  # Reference to the deployment being scaled
+    apiVersion: apps/v1  # API version of the deployment (v1)
+    kind: Deployment  # Kind of resource: Deployment
+    name: laravel  # Name of the deployment to scale ("laravel")
+
 status:
-  conditions:
-  - lastTransitionTime: "2024-04-07T05:17:21Z"
-    message: recommended size matches current size
-    reason: ReadyForNewScale
-    status: "True"
-    type: AbleToScale
-  - lastTransitionTime: "2024-04-07T05:17:21Z"
-    message: the HPA was able to successfully calculate a replica count from cpu resource
-      utilization (percentage of request)
-    reason: ValidMetricFound
-    status: "True"
-    type: ScalingActive
-  - lastTransitionTime: "2024-04-07T05:17:21Z"
-    message: the desired count is within the acceptable range
-    reason: DesiredWithinRange
-    status: "False"
-    type: ScalingLimited
-  currentMetrics:
-  - resource:
-      current:
-        averageUtilization: 1
-        averageValue: 6m
-      name: cpu
-    type: Resource
-  currentReplicas: 1
-  desiredReplicas: 1
-  lastScaleTime: "2024-04-07T05:26:39Z"
+  # Current status of the HPA
+
+  currentReplicas: 1  # Number of replicas currently running in the deployment
+  desiredReplicas: 1  # Number of replicas the HPA currently desires (based on metrics)
+  lastScaleTime: "2024-04-07T05:26:39Z"  # Timestamp of the last scaling event
+
+  conditions:  # List of conditions indicating HPA status
+  - type: AbleToScale  # HPA is able to scale the deployment
+    status: "True"  # Able to scale
+    reason: ReadyForNewScale  # Ready to scale based on metrics
+    lastTransitionTime: "2024-04-07T05:17:21Z"  # Last transition time
+
+  - type: ScalingActive  # HPA has successfully calculated a replica count
+    status: "True"  # Scaling is active
+    reason: ValidMetricFound  # Valid metric (CPU utilization) found for scaling
+    lastTransitionTime: "2024-04-07T05:17:21Z"  # Last transition time
+
+  - type: ScalingLimited  # Desired replica count is within acceptable range
+    status: "False"  # Currently limited (desired count within range)
+    reason: DesiredWithinRange  # Desired replicas within min and max limits
+    lastTransitionTime: "2024-04-07T05:17:21Z"  # Last transition time
+
+  currentMetrics:  # Current metrics reported to the HPA
+  - type: Resource  # Metric type: Resource utilization
+    name: cpu  # CPU utilization metric
+    current:  # Current CPU utilization data
+      averageUtilization: 1  # Average CPU utilization (1%)
+      averageValue: 6m  # Averaging window for CPU utilization (6 minutes)
