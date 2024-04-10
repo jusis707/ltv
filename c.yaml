@@ -41,9 +41,9 @@ spec:
                   key: dbPasswordKey
           ports:
             - containerPort: 9000
-              name: laravel-9000
+              name: php-9000
             - containerPort: 8000
-              name: laravel-8000
+              name: php-8000
           lifecycle:  
             postStart:  # commands that will be executed after container was created
               exec:
@@ -51,14 +51,7 @@ spec:
                   - "sh" 
                   - "-c"
                   - >
-                    mv /var/www/vdc/.env.example /var/www/vdc/.env;
-                    php artisan key:generate;
-                    sed -i
-                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/html/.env;
-                    sed -i
-                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/html/.env;
-                    sed -i
-                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/html/.env;
+                    ls -al;
           volumeMounts:
 # mount volume for communication with nginx
             - name: shared-files
