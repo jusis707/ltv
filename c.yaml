@@ -52,6 +52,7 @@ spec:
                   - "-c"
                   - >
                     mkdir /mnt/data;
+                    php artisan key:generate;
                     chmod -R 777 /mnt/data;
           volumeMounts:
 # mount volume for communication with nginx
