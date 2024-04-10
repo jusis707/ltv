@@ -54,17 +54,15 @@ spec:
                     mv /var/www/vdc/.env.example /var/www/vdc/.env;
                     php artisan key:generate;
                     sed -i
-                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/vdc/.env;
+                    "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/g" /var/www/html/.env;
                     sed -i
-                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/vdc/.env;
+                    "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USER/g" /var/www/html/.env;
                     sed -i
-                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/vdc/.env;
-                    cp -R /var/www/vdc/ /var/www/html/;
-                    chown -R www-data:www-data /var/www/html;
+                    "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/g" /var/www/html/.env;
           volumeMounts:
 # mount volume for communication with nginx
             - name: shared-files
-              mountPath: /var/www/html/vdc/
+              mountPath: /var/www/html/
         - image: mysql:8.0 # mysql container for keeping php data 
           resources:
             limits:
@@ -113,7 +111,7 @@ spec:
           volumeMounts:
             - name: shared-files
 # mount volume for communication between nginx and php
-              mountPath: /var/www/html/vdc/
+              mountPath: /var/www/html/
             - name: nginx-config-volume # mount volume for nginx config
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
