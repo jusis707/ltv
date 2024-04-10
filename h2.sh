@@ -49,7 +49,6 @@ cat ~/ltv/p.txt | docker login --username jusis707 --password-stdin docker.io
 clear
 minikube config set cpus 4
 minikube config set memory 4096
-sudo usermod -aG docker $USER
 minikube start --insecure-registry "10.0.0.0/24" --driver=docker
 echo ""
 clear
