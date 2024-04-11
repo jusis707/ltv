@@ -26,7 +26,8 @@ sudo usermod -aG docker $USER && newgrp docker
         }
     @endphp
 </div>
-## - Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma). \n
+## 
+### Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma). \n
 ## kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h laravel -pASdf456+ \n
 ## SHOW DATABASES; \n
 ## QUIT; \n
