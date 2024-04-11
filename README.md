@@ -39,4 +39,4 @@ sudo usermod -aG docker $USER && newgrp docker
 ###  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
 ###  Radam slodzi 'numur divi':
 ###  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
-  kubectl get pods  #pārliecinamies par autoscale darbību, pod skaitu pieaugumā.
+##  kubectl get pods  #pārliecinamies par autoscale darbību, pod skaitu pieaugumā.
