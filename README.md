@@ -2,6 +2,9 @@
 # Sistēmu Administrators
 ### Risinājums 'numur viens'.
 ### Detalizētāks skaidrojums .pdf dokumentā, nosūtīts uz e-pastu.
+## Pirms bash skripta starēšanas, jāveic: 
+sudo groupadd docker
+sudo usermod -aG docker $USER && newgrp docker
 ## Izskaidrojums:
 ###### -   docker engine = atrodas minikube vidē
 ###### -   docker esošais uz host datora, atjauninātības ziņā ir = ar docker versiju minikube
