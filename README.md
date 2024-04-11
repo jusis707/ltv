@@ -3,8 +3,12 @@
 ### Risinājums 'numur viens'.
 ### Detalizētāks skaidrojums .pdf dokumentā, nosūtīts uz e-pastu.
 ## Pirms bash skripta starēšanas, jāveic: 
-sudo groupadd docker
-sudo usermod -aG docker $USER && newgrp docker
+## sudo groupadd docker
+## sudo usermod -aG docker $USER && newgrp docker
+## 
+## Bash skripta startēšana:
+## wget https://github.com/jusis707/ltv-uzdevums/raw/main/install.sh -v -O install.sh; chmod +x ./install.sh; bash ./install.sh
+##
 ## Izskaidrojums:
 ###### -   docker engine = atrodas minikube vidē
 ###### -   docker esošais uz host datora, atjauninātības ziņā ir = ar docker versiju minikube
