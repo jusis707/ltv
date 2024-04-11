@@ -30,6 +30,8 @@ izmaiņas, ar ./resources/views/welcome.blade.php
 ## SHOW DATABASES; \n
 ## QUIT; \n
 ## - pārliecināties par HPA darbību (3 termināli atsevišķi): \n
+## Webhook saite, kura jāatver bash skripta darbības laikā:
+## https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/5cd180a3-7394-4c43-9705-1e6c5bd1f91f/1
 ##  kubectl get hpa laravel --watch \n
 ##  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
 ##  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
