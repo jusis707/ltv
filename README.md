@@ -13,9 +13,6 @@ sudo usermod -aG docker $USER && newgrp docker
 ###### -   minikube ip
 ###### -   minikube ssh
 ###### -   minikube service laravel
-##### Palaišanas skriptu install.sh nav ieteicams darbināt atkārtoti (rodas papildus darbības).
-# veikt: sudo usermod -aG docker $USER && newgrp docker
-##### (lai neveiktu sudo chmod 666 /var/run/docker.sock )
 ###### Datne ar nosaukumu "welcome.blade.php" tika pārveidota, lai apliecinātu Laravel pieslēgumu datubāzei.
 izmaiņas, ar ./resources/views/welcome.blade.php
 <div class="links">
@@ -37,6 +34,11 @@ izmaiņas, ar ./resources/views/welcome.blade.php
 ## - pārliecināties par HPA darbību (3 termināli atsevišķi): \n
 ## Webhook saite, kura jāatver bash skripta darbības laikā:
 ## https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/5cd180a3-7394-4c43-9705-1e6c5bd1f91f/1
-##  kubectl get hpa laravel --watch \n
-##  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
-##  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
+## Horizonatal pod autoscaling pārbaude:
+  kubectl get pods #pārliecinamies par podu skaitu uz doto brīdi
+  kubectl get hpa laravel --watch \n
+  Radam slodzi 'numur viens':
+  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
+  Radam slodzi 'numur divi':
+  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
+  kubectl get pods  #pārliecinamies par autoscale darbību, pod skaitu pieaugumā.
