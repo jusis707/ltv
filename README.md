@@ -15,8 +15,7 @@ sudo usermod -aG docker $USER && newgrp docker
 ###### -   minikube service laravel
 ###### Datne ar nosaukumu "welcome.blade.php" tika pārveidota, lai apliecinātu Laravel pieslēgumu datubāzei.
 ## izmaiņas, ar ./resources/views/welcome.blade.php
-<div class="links">
-   <strong>Database Connected: </strong>
+
     @php
         try {
             DB::connection()->getPDO();
@@ -25,7 +24,6 @@ sudo usermod -aG docker $USER && newgrp docker
             echo 'None';
         }
     @endphp
-</div>
 ## 
 ### Pārbaudīt mysql datubāzes pieejamību, katru komandrindu startējot atsevišķi (nospiest ENTER pēc pieprasījuma). \n
 ## kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h laravel -pASdf456+ \n
