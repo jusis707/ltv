@@ -35,10 +35,10 @@ izmaiņas, ar ./resources/views/welcome.blade.php
 ## Webhook saite, kura jāatver bash skripta darbības laikā:
 ## https://webhook.site/#!/view/e7aa41df-d4ef-4d54-ae30-d6d74eca380f/5cd180a3-7394-4c43-9705-1e6c5bd1f91f/1
 ## Horizonatal pod autoscaling pārbaude:
-  kubectl get pods #pārliecinamies par podu skaitu uz doto brīdi
-  kubectl get hpa laravel --watch \n
-  Radam slodzi 'numur viens':
-  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
-  Radam slodzi 'numur divi':
-  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
+###  kubectl get pods #pārliecinamies par podu skaitu uz doto brīdi
+###  kubectl get hpa laravel --watch \n
+###  Radam slodzi 'numur viens':
+###  kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://laravel.ltv.lv/; done" \n
+###  Radam slodzi 'numur divi':
+###  kubectl run -i --tty load-generator2 --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.1; do wget -q -O- http://laravel.ltv.lv/; done" \n
   kubectl get pods  #pārliecinamies par autoscale darbību, pod skaitu pieaugumā.
