@@ -9,7 +9,7 @@ read -p "
                                    y lai turpinātu
                                  CTRL + C lai izietu
                                    risinājums Nr.1
-                                  
+                            ar Horizontal Pod Autoscaling
                            Uzstādīšana notiks interaktīvi...
                         Lūgums sekot norādījumiem uz ekrāna
   Iespējamie izvēles varianti ir apstiprinoši (tikai), jo zūd jēga, ar cita veida darbībām
