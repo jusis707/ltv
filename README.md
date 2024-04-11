@@ -1,5 +1,7 @@
 # ltv
 # Sistēmu Administrators
+### Risinājums 'numur viens'.
+### Detalizētāks skaidrojums .pdf dokumentā, nosūtīts uz e-pastu.
 ## Izskaidrojums:
 ###### -   docker engine = atrodas minikube vidē
 ###### -   docker esošais uz host datora, atjauninātības ziņā ir = ar docker versiju minikube
